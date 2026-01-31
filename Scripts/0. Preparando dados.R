@@ -195,7 +195,7 @@ ibgfelps <- ibgfelps %>%
 ## binarias
 
 ## (esse vai ser grande)
-ibgfelps %>% 
+ibgfelps <- ibgfelps %>% 
   select(!c(sexualidade, pet, hamburguer, dataHora, trabalho)) %>%
   mutate(numero = as.character(numero),
          hPaoCima = ifelse(hPaoCima, 1, 0),
@@ -241,6 +241,13 @@ ibgfelps %>%
          tEst = ifelse(tEst, 1, 0),
          tOutro = ifelse(tOutro, 1, 0))
 
+## simplificando a hora e a data
+ibgfelps <- ibgfelps %>%
+  mutate(hora = gsub(':', '', hora),
+         hora = substr(hora, 1, 2),
+         data = gsub('/','', data),
+         dia = substr(data, 1, 2)) %>%
+  select(!data)
 
 # EXPORTANDO -------------------------------------------------------------------
 
